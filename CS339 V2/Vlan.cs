@@ -8,17 +8,11 @@ namespace CS339_V2
 {
     class Vlan : Interface
     {
-        public Vlan(string chunk)
-            : base(chunk)
+        public string bridgeIP;
+        public void populate(string starterIP, string starterMask, string bridgeIP)
         {
-            String[] lines = chunk.Trim().Split('\n');
-            findName(lines);
-            findIPAddress(lines);
-
-            if (ip != null)
-            {
-                findPrefix();
-            }
+            prefix = findPrefix(starterIP, starterMask);
+            this.bridgeIP = bridgeIP;
         }
     }
 }

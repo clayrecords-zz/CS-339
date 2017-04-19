@@ -9,19 +9,16 @@ namespace CS339_V2
         public String ip;
         public String mask;
         public String prefix;
-        public Int64 ipInt;
-        public Int64 maskInt;
-        public Int64 prefixInt;
 
-        public Interface(String chunk)
+        public void populate(string chunk)
         {
             String[] lines = chunk.Trim().Split('\n');
             findName(lines);
-            findIPAddress(lines);
+            findIPandMask(lines);
 
             if (ip != null)
             {
-                findPrefix();
+                prefix = findPrefix(ip, mask);
             }
         }
 
@@ -31,7 +28,7 @@ namespace CS339_V2
             name = words[1];
         }
 
-        public void findIPAddress(string[] lines)
+        public void findIPandMask(string[] lines)
         {
             foreach (String line in lines)
             {
@@ -53,11 +50,11 @@ namespace CS339_V2
             return intIP;
         }
 
-        public void findPrefix()
+        public string findPrefix(string ip, string mask)
         {
-            ipInt = IPstringToInt(ip);
-            maskInt = IPstringToInt(mask);
-            prefixInt = ipInt & maskInt;
+            int ipInt = (int)IPstringToInt(ip);
+            int maskInt = (int)IPstringToInt(mask);
+            int prefixInt = ipInt & maskInt;
 
             List<int> temp = new List<int>();
             temp.Add((int)((prefixInt / Math.Pow(2, 24)) % (Math.Pow(2, 8))));
@@ -65,7 +62,7 @@ namespace CS339_V2
             temp.Add((int)((prefixInt / Math.Pow(2, 8)) % (Math.Pow(2, 8))));
             temp.Add((int)(prefixInt % Math.Pow(2, 8)));
 
-            prefix = temp[0] + "." + temp[1] + "." + temp[2] + "." + temp[3];
+            return temp[0] + "." + temp[1] + "." + temp[2] + "." + temp[3];
         }
 
         public List<int> stringIPtoIntIP(string[] stringSegments)
