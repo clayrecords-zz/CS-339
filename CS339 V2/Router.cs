@@ -77,7 +77,7 @@ namespace CS339_V2
                     foreach (Vlan vlan in connectedRouter.vlans)
                     {
                         if (vlan.ip == route.bridgeIP)
-                        {
+                        {//cross bridge
                             foreach (Vlan vla in connectedRouter.vlans)
                             {
                                 if (vla.prefix == route.prefix)
