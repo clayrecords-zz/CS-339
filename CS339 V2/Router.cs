@@ -66,6 +66,29 @@ namespace CS339_V2
             }
         }
 
+        public void route()
+        {
+            /*foreach (ClasslessConnection cc in classlessConnections)
+            {
+                foreach (Router connection in connectedRouters.Values)
+                {
+                    foreach (Interface vlan in connection.vlans)
+                    {
+                        if (vlan.ip == cc.connecterIP)
+                        {
+                            foreach (Interface vla in connection.vlans)
+                            {
+                                if (vla.prefix == cc.prefix)
+                                {
+                                    vlans.Add(vla);
+                                }
+                            }
+                        }
+                    }
+                }
+            }*/
+        }
+
         private void findInterfaces(string[] chunks)
         {
             foreach (String chunk in chunks)

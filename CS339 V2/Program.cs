@@ -15,7 +15,7 @@ namespace CS339_V2
         {
             List<Router> routers = getRouters();
             findConnections(routers);
-
+            findRoutedVlans(routers);
         }
 
         private static void findConnections(List<Router> routers)
@@ -45,7 +45,6 @@ namespace CS339_V2
             }
         }
 
-
         private static List<Router> getRouters()
         {
             FolderBrowserDialog b = new FolderBrowserDialog();
@@ -63,6 +62,13 @@ namespace CS339_V2
             return routers;
         }
 
+        public static void findRoutedVlans(List<Router> routers)
+        {
+            foreach (Router router in routers)
+            {
+                router.route();
+            }
+        }
 
         private static Router createRouter(string file)
         {
@@ -75,7 +81,6 @@ namespace CS339_V2
             }
             return (new Router(name, bldr.ToString()));
         }
-
 
         private static string getName(string file)
         {
