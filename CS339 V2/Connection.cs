@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CS339_V2
 {
-    class Connections
+    class Connection
     {
+        public Router r1;
+        public Router r2;
+        public String data;
     }
 }

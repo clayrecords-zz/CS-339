@@ -14,8 +14,37 @@ namespace CS339_V2
         static void Main(string[] args)
         {
             List<Router> routers = getRouters();
+            findConnections(routers);
 
         }
+
+        private static void findConnections(List<Router> routers)
+        {
+
+            List<String> Connections = new List<string>();
+            for (int i = 0; i < routers.Count; i++)
+            {
+                for (int j = 0; j < routers[i].interfaces.Count; j++)
+                {
+                    for (int x = i + 1; x < routers.Count; x++)
+                    {
+                        for (int y = 0; y < routers[x].interfaces.Count; y++)
+                        {
+                            //compare ij to xy
+                            if (routers[i].interfaces[j].prefix == routers[x].interfaces[y].prefix)
+                            {
+                                Connection connection = new Connection();
+                                connection.r1 = routers[i];
+                                connection.r2 = routers[x];
+                                connection.data = routers[i].interfaces[j].prefix;
+                                //Connections.Add(connection);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         private static List<Router> getRouters()
         {
@@ -27,18 +56,26 @@ namespace CS339_V2
                 Console.WriteLine(folderName);
                 foreach (var file in Directory.EnumerateFiles(folderName, "*.txt"))
                 {
-                    string name = getName(file);
-                    StringBuilder bldr = new StringBuilder();
-                    StreamReader rdr = new StreamReader(file);
-                    while (rdr.Peek() >= 0)
-                    {
-                        bldr.Append(rdr.ReadLine());
-                    }
-                    routers.Add(new Router(name, bldr.ToString()));
+                    Router r = createRouter(file);
+                    routers.Add(r);
                 }
             }
             return routers;
         }
+
+
+        private static Router createRouter(string file)
+        {
+            string name = getName(file);
+            StringBuilder bldr = new StringBuilder();
+            StreamReader rdr = new StreamReader(file);
+            while (rdr.Peek() >= 0)
+            {
+                bldr.Append(rdr.ReadLine());
+            }
+            return (new Router(name, bldr.ToString()));
+        }
+
 
         private static string getName(string file)
         {
