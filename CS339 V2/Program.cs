@@ -20,8 +20,7 @@ namespace CS339_V2
 
         private static void findConnections(List<Router> routers)
         {
-
-            List<String> Connections = new List<string>();
+            List<Connection> connections = new List<Connection>();
             for (int i = 0; i < routers.Count; i++)
             {
                 for (int j = 0; j < routers[i].interfaces.Count; j++)
@@ -33,11 +32,11 @@ namespace CS339_V2
                             //compare ij to xy
                             if (routers[i].interfaces[j].prefix == routers[x].interfaces[y].prefix)
                             {
-                                Connection connection = new Connection();
-                                connection.r1 = routers[i];
-                                connection.r2 = routers[x];
-                                connection.data = routers[i].interfaces[j].prefix;
-                                //Connections.Add(connection);
+                                Connection conn = new Connection();
+                                conn.r1 = routers[i];
+                                conn.r2 = routers[x];
+                                conn.data = routers[i].interfaces[j].prefix;
+                                connections.Add(conn);
                             }
                         }
                     }

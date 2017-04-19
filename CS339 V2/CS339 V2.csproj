@@ -49,6 +49,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Router.cs" />
+    <Compile Include="Visualization.cs" />
     <Compile Include="Vlan.cs" />
   </ItemGroup>
   <ItemGroup>
