@@ -12,6 +12,8 @@ namespace CS339_V2
         public List<Interface> interfaces;
         public List<Vlan> vlans;
         public List<Vlan> routes;
+        public SortedDictionary<string, Router> connectedRouters = new SortedDictionary<string, Router>();
+        public SortedDictionary<string, Vlan> connectedVlans = new SortedDictionary<string, Vlan>();
 
         public Router(string fileName, string contents)
         {
@@ -68,17 +70,17 @@ namespace CS339_V2
 
         public void route()
         {
-            /*foreach (ClasslessConnection cc in classlessConnections)
+            foreach (Vlan route in routes)
             {
-                foreach (Router connection in connectedRouters.Values)
+                foreach (Router connectedRouter in connectedRouters.Values)
                 {
-                    foreach (Interface vlan in connection.vlans)
+                    foreach (Vlan vlan in connectedRouter.vlans)
                     {
-                        if (vlan.ip == cc.connecterIP)
+                        if (vlan.ip == route.bridgeIP)
                         {
-                            foreach (Interface vla in connection.vlans)
+                            foreach (Vlan vla in connectedRouter.vlans)
                             {
-                                if (vla.prefix == cc.prefix)
+                                if (vla.prefix == route.prefix)
                                 {
                                     vlans.Add(vla);
                                 }
@@ -86,7 +88,7 @@ namespace CS339_V2
                         }
                     }
                 }
-            }*/
+            }
         }
 
         private void findInterfaces(string[] chunks)
@@ -116,6 +118,10 @@ namespace CS339_V2
                     }
                 }
             }
+        }
+        public void addConnection(String prefix, Router router)
+        {
+            connectedRouters.Add(prefix, router);
         }
     }
 }
